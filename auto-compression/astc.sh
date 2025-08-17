@@ -2,7 +2,7 @@ find ./astc -name '*.astc' -type f -delete
 rm -rf temp/*.png
 
 # SSIMULACRA2 score threshold
-threshold="${1:-80}"
+threshold="${1:-70}"
 
 # ASTC blocks from lowest to highest bitrate
 blocks=("12x12" "12x10" "10x10" "10x8" "8x8" "10x6" "10x5" "8x6" "8x5" "6x6" "6x5" "5x5" "5x4" "4x4")

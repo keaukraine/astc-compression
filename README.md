@@ -22,7 +22,7 @@ I have tested it on WSL with Ubuntu.
 
 Quality parameter is SSIMULACRA2 quality score in range from 0 to 100, please refer to README for explanation of this score.
 
-If omitted, default 80 quality will be used which stands for "very high quality", better than typical JPEGs used in web.
+If omitted, default 70 quality will be used which stands for "high quality", similar to typical JPEGs used in web.
 
 Please note that script detects mipmapped images by file name pattern `name_mip.png`. So `img_0.png`, `img_1.png` and `img_2.png` will be treated as mipmaps of the same image and will use the same compression as for the mipmap 0.
 
