@@ -32,7 +32,7 @@ compress_image() {
     block=$2
     filename=$(basename "$file" .png)
 
-    printf "\rCompressing %s            " "$filename"
+    printf "\rCompressing %s            " "$filename" 1>&2
     ./astcenc-avx2 -cl "$file" astc/"$block"/"$filename".astc "$block" -exhaustive > /dev/null
     printf "\r" 1>&2
 }
