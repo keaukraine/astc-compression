@@ -11,12 +11,16 @@ is_good_quality() {
     filename=$1
     block=$2
 
+    printf "\rMeasuring quality: %s %s   " "$filename" "$block" 1>&2
+
     ./astcenc-avx2 -tl "$file" temp/"$filename"_"$block".png "$block" -verythorough > /dev/null
 
     score=$(./ssimulacra2 "source/$filename.png" temp/"$filename"_"$block".png 2>/dev/null) # floating-point output
 
+    printf "\r" 1>&2
+
     if [ "$(echo "$score > $threshold" | bc -l)" -eq 1 ]; then
-        echo "$filename using $block block, score is $score"
+        printf "%-30s uses %-5s block, score is %-5s\n" "$filename" "$block" "$score"
         return 0 # true
     else
         return 1 # false
@@ -27,7 +31,10 @@ compress_image() {
     file=$1
     block=$2
     filename=$(basename "$file" .png)
+
+    printf "\rCompressing %s            " "$filename"
     ./astcenc-avx2 -cl "$file" astc/"$block"/"$filename".astc "$block" -exhaustive > /dev/null
+    printf "\r" 1>&2
 }
 
 for file in source/*.png; do
