@@ -1,13 +1,18 @@
 # Automated ASTC compression
 
-This simple bash script picks the best possible ASTC compression based on SSIMULACRA2 quality score.
+This repo has two tools:
+1. Simple bash script picks the best possible ASTC compression based on SSIMULACRA2 quality score.
+2. Automated mipmaps generation from PNG files using ImageMagick.
 
 # Used libraries
 
 - astc-encoder, official ARM ASTC compression tool https://github.com/ARM-software/astc-encoder
 - SSIMULACRA2, perceptual compression quality comparison tool https://github.com/cloudinary/ssimulacra2
+- ImageMagick, versatile command-line image processing tool https://github.com/ImageMagick/ImageMagick
 
 # Usage
+
+ASTC compression:
 
 1. Put your source PNG files in the `auto-compression/source` directory.
 2. Run ./astc.sh <quality>
@@ -15,6 +20,10 @@ This simple bash script picks the best possible ASTC compression based on SSIMUL
 Quality parameter is SSIMULACRA2 quality score in range from 0 to 100, please refer to README for explanation of this score.
 
 If omitted, default 80 quality will be used which stands for "very high quality", better than typical JPEGs used in web.
+
+Mipmap generation:
+
+Put source PNG files in `mipmaps-generation/src` and run `convert-all.sh` script.
 
 # License
 
