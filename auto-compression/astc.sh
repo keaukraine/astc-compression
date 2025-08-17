@@ -19,11 +19,20 @@ is_good_quality() {
 
     printf "\r" 1>&2
 
-    if [ "$(echo "$score > $threshold" | bc -l)" -eq 1 ]; then
-        printf "%-30s uses %-5s block, score is %-5s\n" "$filename" "$block" "$score"
-        return 0 # true
+    if echo "$score" | grep -Eq '^[0-9]+(\.[0-9]+)?$'; then
+        if [ "$(echo "$score > $threshold" | bc -l)" -eq 1 ]; then
+            printf "%-30s uses %-5s block, score is %-5s\n" "$filename" "$block" "$score"
+            return 0 # true
+        else
+            return 1 # false
+        fi
     else
-        return 1 # false
+        if [ "$block" = "4x4" ]; then
+            printf "%-30s cannot be tested (probably too small), using %s\n" "$filename" "$block"
+            return 0 # true
+        else
+            return 1 # false
+        fi
     fi
 }
 
