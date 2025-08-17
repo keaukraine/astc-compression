@@ -60,4 +60,4 @@ for file in source/*.png; do
     fi
 done
 
-# rm -rf temp/*.png
+rm -rf temp/*.png
