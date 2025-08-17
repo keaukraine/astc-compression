@@ -15,7 +15,7 @@ This repo has two tools:
 ASTC compression:
 
 1. Put your source PNG files in the `auto-compression/source` directory.
-2. Run ./astc.sh <quality>
+2. Run `./astc.sh <quality>`
 
 Quality parameter is SSIMULACRA2 quality score in range from 0 to 100, please refer to README for explanation of this score.
 
