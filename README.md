@@ -15,7 +15,7 @@ This repo has two tools:
 These tools are meant to be run in Linux (some amd64 binaries are included). Theoretically it is very easy to rebuild tools for any other OS, and bash scripts should be POSIX-compatible.
 I have tested it on WSL with Ubuntu.
 
-ASTC compression:
+## ASTC compression
 
 1. Put your source PNG files in the `auto-compression/source` directory.
 2. Run `./astc.sh <quality>`
@@ -24,7 +24,9 @@ Quality parameter is SSIMULACRA2 quality score in range from 0 to 100, please re
 
 If omitted, default 80 quality will be used which stands for "very high quality", better than typical JPEGs used in web.
 
-Mipmap generation:
+Please note that script detects mipmapped images by file name pattern `name_mip.png`. So `img_0.png`, `img_1.png` and `img_2.png` will be treated as mipmaps of the same image and will use the same compression as for the mipmap 0.
+
+## Mipmap generation
 
 Put source PNG files in `mipmaps-generation/src` and run `convert-all.sh` script.
 

@@ -33,12 +33,31 @@ compress_image() {
 for file in source/*.png; do
     filename=$(basename "$file" .png)
 
-    for blockSize in "${blocks[@]}"; do
-        if is_good_quality "$filename" "$blockSize"; then
-            compress_image $file $blockSize
-            break
+    # Test if image has mipmaps by its filename. Format is "image_mip.png".
+    if expr "$filename" : '.*_[0-9][0-9]*$' >/dev/null; then
+        # Test quality only for mipmap=0 and process all other mipmaps with the same compression
+        if expr "$filename" : '.*_0$' >/dev/null; then
+            for blockSize in "${blocks[@]}"; do
+                if is_good_quality "$filename" "$blockSize"; then
+                    no_mipmap_level_name=$(echo "$filename" | sed 's/_0$//')
+
+                    for file_mip in source/"$no_mipmap_level_name"_*.png; do
+                        compress_image $file_mip $blockSize
+                    done
+
+                    break
+                fi
+            done
         fi
-    done
+    else
+        # File has no mipmaps, process it as-is
+        for blockSize in "${blocks[@]}"; do
+            if is_good_quality "$filename" "$blockSize"; then
+                compress_image $file $blockSize
+                break
+            fi
+        done
+    fi
 done
 
-rm -rf temp/*.png
+# rm -rf temp/*.png
