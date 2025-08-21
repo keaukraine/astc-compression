@@ -1,5 +1,5 @@
 find ./astc -name '*.astc' -type f -delete
-rm -rf temp/*.png
+rm -rf decoded/*.png
 
 # SSIMULACRA2 score threshold
 threshold="${1:-70}"
@@ -13,9 +13,9 @@ is_good_quality() {
 
     printf "\rMeasuring quality: %s %s   " "$filename" "$block" 1>&2
 
-    ./astcenc-avx2 -tl "$file" temp/"$filename"_"$block".png "$block" -verythorough > /dev/null
+    ./astcenc-avx2 -tl "$file" decoded/"$filename".png "$block" -verythorough > /dev/null
 
-    score=$(./ssimulacra2 "source/$filename.png" temp/"$filename"_"$block".png 2>/dev/null) # floating-point output
+    score=$(./ssimulacra2 "source/$filename.png" decoded/"$filename".png 2>/dev/null) # floating-point output
 
     printf "\r" 1>&2
 
@@ -76,4 +76,4 @@ for file in source/*.png; do
     fi
 done
 
-rm -rf temp/*.png
+rm -rf decoded/*.png
