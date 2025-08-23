@@ -57,7 +57,7 @@ for file in source/*.png; do
                 if is_good_quality "$filename" "$blockSize"; then
                     no_mipmap_level_name=$(echo "$filename" | sed 's/_0$//')
 
-                    for file_mip in source/"$no_mipmap_level_name"_*.png; do
+                    for file_mip in source/"$no_mipmap_level_name"_[0-9]*.png; do
                         compress_image $file_mip $blockSize
                     done
 
