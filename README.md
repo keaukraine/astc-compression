@@ -26,6 +26,8 @@ If omitted, default 70 quality will be used which stands for "high quality", sim
 
 Please note that script detects mipmapped images by file name pattern `name_mip.png`. So `img_0.png`, `img_1.png` and `img_2.png` will be treated as mipmaps of the same image and will use the same compression as for the mipmap 0.
 
+![console](https://github.com/user-attachments/assets/4754a78e-b6dd-4bf2-bdca-9d425a7b325a)
+
 ## Mipmap generation
 
 Put source PNG files in `mipmaps-generation/src` and run `convert-all.sh` script.
