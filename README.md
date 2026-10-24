@@ -15,6 +15,8 @@ This repo has two tools:
 These tools are meant to be run in Linux (some amd64 binaries are included). Theoretically it is very easy to rebuild tools for any other OS, and bash scripts should be POSIX-compatible.
 I have tested it on WSL with Ubuntu.
 
+You can also run both tools in Docker on Windows, macOS and Linux; see [README_DOCKER.md](README_DOCKER.md).
+
 ## ASTC compression
 
 1. Put your source PNG files in the `auto-compression/source` directory.

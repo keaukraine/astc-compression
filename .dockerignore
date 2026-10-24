@@ -1,0 +1,8 @@
+.git
+.gitignore
+**/*.png
+**/*.astc
+**/.gitkeep
+dockerize.md
+README.md
+README_DOCKER.md

@@ -1,0 +1,19 @@
+services:
+  tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: astc-compression:latest
+    # Bundled binaries are Linux x86-64. On Apple Silicon Docker emulates
+    # amd64 (see README_DOCKER.md).
+    platform: linux/amd64
+    # On Linux set DOCKER_UID/DOCKER_GID to your user so generated files
+    # are not owned by root. Docker Desktop handles ownership itself.
+    user: "${DOCKER_UID:-0}:${DOCKER_GID:-0}"
+    volumes:
+      - ./auto-compression/source:/work/auto-compression/source
+      - ./auto-compression/astc:/work/auto-compression/astc
+      - ./auto-compression/decoded:/work/auto-compression/decoded
+      - ./mipmaps-generation/src:/work/mipmaps-generation/src
+      - ./mipmaps-generation/mipmaps:/work/mipmaps-generation/mipmaps
+    command: help

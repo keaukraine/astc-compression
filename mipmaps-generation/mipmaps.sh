@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# Check if ImageMagick is installed
-if ! command -v magick &> /dev/null; then
+# Check if ImageMagick is installed. ImageMagick 7 provides "magick",
+# ImageMagick 6 (Ubuntu/Debian packages) provides "convert".
+if command -v magick &> /dev/null; then
+    magick_cmd="magick"
+elif command -v convert &> /dev/null; then
+    magick_cmd="convert"
+else
     echo "Error: ImageMagick is not installed. Install it with 'sudo apt install imagemagick' or equivalent."
     exit 1
 fi
@@ -30,7 +35,7 @@ height=$(identify -format "%h" "$input_image")
 level=0
 while [ "$width" -gt 0 ] || [ "$height" -gt 0 ]; do
     output_file="$output_dir/${base_name}_${level}.png"
-    magick "$input_image" -resize "${width}x${height}" "$output_file"
+    "$magick_cmd" "$input_image" -resize "${width}x${height}" "$output_file"
     echo "Generated: $output_file"
 
     # Halve the dimensions
