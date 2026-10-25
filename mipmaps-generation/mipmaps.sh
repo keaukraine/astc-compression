@@ -37,7 +37,10 @@ while :; do
     output_file="$output_dir/${base_name}_${level}.png"
     # "!" forces exact dimensions: once one side reaches 1, the aspect
     # ratio no longer matches the original image.
-    "$magick_cmd" "$input_image" -resize "${width}x${height}!" "$output_file"
+    # color-type=2 and depth 8 force 24-bit RGB PNGs instead of letting
+    # ImageMagick pick the smallest depth (e.g. grayscale or palette).
+    "$magick_cmd" "$input_image" -resize "${width}x${height}!" \
+        -define png:color-type=2 -depth 8 "$output_file"
     echo "Generated: $output_file"
 
     if [ "$width" -eq 1 ] && [ "$height" -eq 1 ]; then
