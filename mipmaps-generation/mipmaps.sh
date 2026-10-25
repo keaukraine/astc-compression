@@ -33,14 +33,22 @@ height=$(identify -format "%h" "$input_image")
 # echo $height
 
 level=0
-while [ "$width" -gt 0 ] || [ "$height" -gt 0 ]; do
+while :; do
     output_file="$output_dir/${base_name}_${level}.png"
-    "$magick_cmd" "$input_image" -resize "${width}x${height}" "$output_file"
+    # "!" forces exact dimensions: once one side reaches 1, the aspect
+    # ratio no longer matches the original image.
+    "$magick_cmd" "$input_image" -resize "${width}x${height}!" "$output_file"
     echo "Generated: $output_file"
 
-    # Halve the dimensions
+    if [ "$width" -eq 1 ] && [ "$height" -eq 1 ]; then
+        break
+    fi
+
+    # Halve the dimensions, clamping each side to 1
     width=$((width / 2))
     height=$((height / 2))
+    [ "$width" -lt 1 ] && width=1
+    [ "$height" -lt 1 ] && height=1
     level=$((level + 1))
 done
 
