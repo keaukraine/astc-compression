@@ -20,8 +20,12 @@ is_good_quality() {
     printf "\r" 1>&2
 
     if echo "$score" | grep -Eq '^[0-9]+(\.[0-9]+)?$'; then
-        if [ "$(echo "$score > $threshold" | bc -l)" -eq 1 ]; then
+        if [ "$(echo "$score >= $threshold" | bc -l)" -eq 1 ]; then
             printf "%-30s uses %-5s block, score is %-5s\n" "$filename" "$block" "$score"
+            return 0 # true
+        elif [ "$block" = "4x4" ]; then
+            # 4x4 is the highest quality block, so no better result is possible
+            printf "%-30s quality %s not reachable, using %s (score is %s)\n" "$filename" "$threshold" "$block" "$score"
             return 0 # true
         else
             return 1 # false
